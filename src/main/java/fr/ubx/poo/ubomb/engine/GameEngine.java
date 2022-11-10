@@ -81,13 +81,8 @@ public final class GameEngine {
         }
 
         sprites.add(new SpritePlayer(layer, player));
-<<<<<<< Updated upstream
         //LA
-=======
-
         //ALLO
-
->>>>>>> Stashed changes
     }
 
     void buildAndSetGameLoop() {
