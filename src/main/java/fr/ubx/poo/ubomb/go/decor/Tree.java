@@ -7,7 +7,7 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.Walkable;
 import fr.ubx.poo.ubomb.go.character.Player;
 
-public class Tree extends Decor implements Walkable
+public class Tree extends Decor
 {
     public Tree(Position position) {
         super(position);

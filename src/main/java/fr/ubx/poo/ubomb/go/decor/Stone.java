@@ -8,7 +8,7 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.Walkable;
 import fr.ubx.poo.ubomb.go.character.Player;
 
-public class Stone extends Decor implements Walkable {
+public class Stone extends Decor {
     public Stone(Position position) {
         super(position);
     }
