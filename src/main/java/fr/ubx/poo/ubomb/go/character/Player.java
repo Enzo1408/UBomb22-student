@@ -64,19 +64,15 @@ public class Player extends GameObject implements Movable, TakeVisitor {
     public final boolean canMove(Direction direction)
     {
         //Check if player goes out of bounds
-        Position nextPos = direction.nextPosition(game.player().getPosition());
-        if (nextPos.x() < 0 || nextPos.x() >= game.grid().width() ||
-            nextPos.y() < 0 || nextPos.y() >= game.grid().height()-1)
-        {
-            return false;
-        }
         //Check if player can move on next position (not tree and not stone)
-        Decor nextPosDecor = game.grid().get(direction.nextPosition(game.player().getPosition()));
-        if (nextPosDecor instanceof Stone || nextPosDecor instanceof Tree)
+        Position nextPos = direction.nextPosition(game.player().getPosition());
+        Decor nextPosDecor = game.grid().get(nextPos);
+
+        if (nextPosDecor == null)
         {
-            return false;
+            return game.grid().inside(nextPos);
         }
-        return true;
+        return nextPosDecor.walkableBy(game.player()) && game.grid().inside(nextPos);
     }
 
     public void update(long now) {
