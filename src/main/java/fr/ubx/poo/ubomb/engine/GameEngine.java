@@ -81,7 +81,7 @@ public final class GameEngine {
         }
 
         sprites.add(new SpritePlayer(layer, player));
-
+        //LA
     }
 
     void buildAndSetGameLoop() {

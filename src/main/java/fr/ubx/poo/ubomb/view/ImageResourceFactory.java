@@ -23,4 +23,9 @@ public class ImageResourceFactory {
         return ImageResource.valueOf("BOMB_"+i);
     }
 
+    public static ImageResource getPrincess() {
+        return ImageResource.valueOf("PRINCESS");
+    }
+
+
 }
