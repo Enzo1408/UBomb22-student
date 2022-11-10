@@ -65,7 +65,7 @@ public final class GameEngine {
         scene.getStylesheets().add(getClass().getResource("/css/application.css").toExternalForm());
 
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.sizeToScene();
         stage.hide();
         stage.show();
@@ -81,6 +81,7 @@ public final class GameEngine {
         }
 
         sprites.add(new SpritePlayer(layer, player));
+
     }
 
     void buildAndSetGameLoop() {

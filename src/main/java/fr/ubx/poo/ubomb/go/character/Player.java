@@ -11,6 +11,9 @@ import fr.ubx.poo.ubomb.game.Position;
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.Movable;
 import fr.ubx.poo.ubomb.go.TakeVisitor;
+import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.go.decor.Stone;
+import fr.ubx.poo.ubomb.go.decor.Tree;
 import fr.ubx.poo.ubomb.go.decor.bonus.*;
 
 public class Player extends GameObject implements Movable, TakeVisitor {
@@ -58,8 +61,21 @@ public class Player extends GameObject implements Movable, TakeVisitor {
         moveRequested = true;
     }
 
-    public final boolean canMove(Direction direction) {
-        // Need to be updated ;-)
+    public final boolean canMove(Direction direction)
+    {
+        //Check if player goes out of bounds
+        Position nextPos = direction.nextPosition(game.player().getPosition());
+        if (nextPos.x() < 0 || nextPos.x() >= game.grid().width() ||
+            nextPos.y() < 0 || nextPos.y() >= game.grid().height()-1)
+        {
+            return false;
+        }
+        //Check if player can move on next position (not tree and not stone)
+        Decor nextPosDecor = game.grid().get(direction.nextPosition(game.player().getPosition()));
+        if (nextPosDecor instanceof Stone || nextPosDecor instanceof Tree)
+        {
+            return false;
+        }
         return true;
     }
 
