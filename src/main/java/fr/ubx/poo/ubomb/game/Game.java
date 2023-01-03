@@ -2,41 +2,84 @@ package fr.ubx.poo.ubomb.game;
 
 import fr.ubx.poo.ubomb.go.GameObject;
 import fr.ubx.poo.ubomb.go.character.Player;
+import fr.ubx.poo.ubomb.go.decor.Decor;
+import fr.ubx.poo.ubomb.go.decor.DoorNextClosed;
+import fr.ubx.poo.ubomb.go.decor.DoorNextOpened;
+import fr.ubx.poo.ubomb.go.decor.DoorPrevOpened;
+import fr.ubx.poo.ubomb.launcher.Entity;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Game {
 
     private final Configuration configuration;
     private final Player player;
-    private final Grid grid;
 
-    public Game(Configuration configuration, Grid grid) {
+    private final Grid[] grids;
+    private final int levels;
+    public int activeLevel;
+    public int oldLevel;
+    public boolean levelChangeRequested = false;
+
+    public ArrayList<GameObject> newRenderTargets;
+
+    public Game(Configuration configuration, Grid[] grids)
+    {
         this.configuration = configuration;
-        this.grid = grid;
+
+        this.grids = grids;
+        this.levels = grids.length;
+        this.activeLevel = 1;
+        this.oldLevel = 1;
+
         player = new Player(this, configuration.playerPosition());
+
+        newRenderTargets = new ArrayList<>();
     }
 
     public Configuration configuration() {
         return configuration;
     }
 
-    // Returns the player, monsters and bomb at a given position
-    public List<GameObject> getGameObjects(Position position) {
-        List<GameObject> gos = new LinkedList<>();
-        if (player().getPosition().equals(position))
-            gos.add(player);
-        return gos;
-    }
 
     public Grid grid() {
-        return grid;
+        return grids[activeLevel-1];
+    }
+
+    public Grid grid(int index) {
+        return grids[index-1];
+    }
+
+    public DoorNextOpened findNextDoor()
+    {
+        for (Decor decor : grids[activeLevel-1].values())
+        {
+            if (decor instanceof DoorNextOpened)
+            {
+                return (DoorNextOpened) decor;
+            }
+        }
+
+        return null;
+    }
+
+    public DoorPrevOpened findPreviousDoor()
+    {
+        for (Decor decor : grids[activeLevel-1].values())
+        {
+            if (decor instanceof DoorPrevOpened)
+            {
+                return (DoorPrevOpened) decor;
+            }
+        }
+
+        return null;
     }
 
     public Player player() {
         return this.player;
     }
 
+    public void addNewRenderTarget(GameObject go) { newRenderTargets.add(go);}
 
 }

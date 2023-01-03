@@ -31,19 +31,61 @@ public class Level implements Grid {
                     case Stone:
                         elements.put(position, new Stone(position));
                         break;
+
                     case Tree:
                         elements.put(position, new Tree(position));
                         break;
-                    case Key:
-                        elements.put(position, new Key(position));
-                        break;
+
                     case Princess:
                         elements.put(position, new Princess(position));
                         break;
+
+                    case Monster:
+                        elements.put(position, new Monster(position));
+                        break;
+
                     case Box:
                         elements.put(position, new Box(position));
                         break;
+
+                    //Bonuses
+                    case Key:
+                        elements.put(position, new Key(position));
+                        break;
+
+                    case BombRangeInc:
+                        elements.put(position, new BombRangeInc(position));
+                        break;
+                    case BombRangeDec:
+                        elements.put(position, new BombRangeDec(position));
+                        break;
+
+                    case BombNumberInc:
+                        elements.put(position, new BombNumberInc(position));
+                        break;
+                    case BombNumberDec:
+                        elements.put(position, new BombNumberDec(position));
+                        break;
+
+                    case Heart:
+                        elements.put(position, new Heart(position));
+                        break;
+
+                    //Doors
+                    case DoorNextClosed:
+                        elements.put(position, new DoorNextClosed(position));
+                        break;
+
+                    case DoorNextOpened:
+                        elements.put(position, new DoorNextOpened(position));
+                        break;
+
+                    case DoorPrevOpened:
+                        elements.put(position, new DoorPrevOpened(position));
+                        break;
+
                     case Empty: break;
+
                     default:
                         throw new RuntimeException("EntityCode " + entity.name() + " not processed");
                 }
@@ -83,7 +125,7 @@ public class Level implements Grid {
     @Override
     public void set(Position position, Decor decor) {
         if (!inside(position))
-            throw new IllegalArgumentException("Illegal Position");
+            throw new IllegalArgumentException("Illegal Position: (" + position.x() + ", " + position.y() + ")");
         if (decor != null)
             elements.put(position, decor);
     }

@@ -33,7 +33,7 @@ public class StatusBar {
         this.game = game;
 
         level.getStyleClass().add("level");
-        level.getChildren().add(new ImageView(ImageResourceFactory.digit(1).getImage()));
+        level.getChildren().add(new ImageView(ImageResourceFactory.digit(game.activeLevel).getImage()));
 
         ds.setRadius(5.0);
         ds.setOffsetX(3.0);
@@ -71,9 +71,15 @@ public class StatusBar {
 
     public void update(Game game) {
         Player player = game.player();
-        lives.setText("?");
-        bombRange.setText("?");
-        availableBombs.setText("?");
-        keys.setText("?");
+
+        StringBuilder livesText = new StringBuilder();
+        livesText.append(player.getLives());
+        livesText.append("/");
+        livesText.append(player.getMaxLives());
+        lives.setText(livesText.toString());
+
+        availableBombs.setText(Integer.toString(player.getBombs()));
+        bombRange.setText(Integer.toString(player.getBombRange()));
+        keys.setText(Integer.toString(player.getKeys()));
     }
 }

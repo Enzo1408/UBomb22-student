@@ -6,5 +6,10 @@ public record Position (int x, int y) {
         this(position.x, position.y);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Position pos = (Position)obj;
 
+        return this.x == pos.x && this.y == pos.y;
+    }
 }
